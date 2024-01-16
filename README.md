@@ -1,2 +1,2 @@
 # Additif-Model
-This code implements the additif model
+This code implements the additif model.
