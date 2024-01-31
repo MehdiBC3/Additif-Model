@@ -22,9 +22,46 @@ class Regression:
 
 	def show_model_predictions(self, y_train_predicted, y_test_predicted):
 		plt.figure(figsize=(15, 6))
-		plt.plot(self.data_preparation_object.x_train, self.data_preparation_object.y_train, "bo:")# vt
-		plt.plot(self.data_preparation_object.x_train, y_train_predicted,"b") # prediction
+		split_index = int(len(self.data_preparation_object.dataset_df) * 0.75)
+		
+		y_train_predicted = y_train_predicted.flatten()
+		y_test_predicted = y_test_predicted.flatten()
+		y_test_actual = self.data_preparation_object.y_test.flatten()
+		
+		mse_test = numpy.mean((y_test_actual - y_test_predicted) ** 2)
+		se_test = numpy.sqrt(mse_test) / numpy.sqrt(len(y_test_actual))
+		ci_test = 1.96 * se_test
+		
+		years_test = self.data_preparation_object.dataset_df['Years'][split_index:].values.flatten()
+		
 
-		plt.plot(self.data_preparation_object.x_test, self.data_preparation_object.y_test, "ro:") # vt
-		plt.plot(self.data_preparation_object.x_test, y_test_predicted, "r")# prediction
+
+
+		plt.plot(
+            self.data_preparation_object.dataset_df['Years'][:len(self.data_preparation_object.x_train)],
+            self.data_preparation_object.y_train, "bo:", label='Actual Train Sales')
+		plt.plot(
+            self.data_preparation_object.dataset_df['Years'][:len(self.data_preparation_object.x_train)],
+            y_train_predicted, "#77B5FE", label='Predicted Train Sales')
+		plt.plot(
+            self.data_preparation_object.dataset_df['Years'][len(self.data_preparation_object.x_train):],
+            self.data_preparation_object.y_test, "o:", color = "orange", label='Actual Test Sales')
+		plt.plot(
+            self.data_preparation_object.dataset_df['Years'][len(self.data_preparation_object.x_train):],
+            y_test_predicted, "r-", label='Predicted Test Sales')
+
+		plt.fill_between(
+            years_test,
+            y_test_predicted - ci_test,
+            y_test_predicted + ci_test,
+            color='violet',
+            alpha=0.2, label = "95% Confidence interval"
+        )
+		
+		plt.xlabel("Years")
+		plt.ylabel("Sales")
+		plt.title("Modèle Additif")
+		plt.legend()
 		plt.show()
+
+
