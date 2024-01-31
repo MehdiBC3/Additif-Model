@@ -20,8 +20,17 @@ class DataPreparation:
 		y_test # solution test
 		"""
 		self.dataset_df = pandas.read_csv(csv_path)
-		self.dataset_df["month"] = pandas.to_datetime(self.dataset_df["month"])
+		self.dataset_df["Years"] = pandas.to_datetime(self.dataset_df["Years"])
+		self.dataset_df["month_name"] = self.dataset_df["Years"].dt.strftime('%B')
+		self.dataset_df = pandas.get_dummies(self.dataset_df, columns =['month_name'], drop_first=True)
 		self.prepare_data()
+
+		
+
+	
+	def afficher_dataframe(self):
+		print(self.dataset_df)
+
 
 	def prepare_data(self):
 		number_of_rows = len(self.dataset_df)
@@ -30,14 +39,17 @@ class DataPreparation:
 		dataset_train_df = self.dataset_df.iloc[ : int(number_of_rows*0.75)]
 		dataset_test_df = self.dataset_df.iloc[int(number_of_rows*0.75): ]
 
-		self.x_train = dataset_train_df[['index_mesure']].values #une ligne à modifier pour le projet
-		self.y_train = dataset_train_df[['passengers']].values
+		x_columns = ['index_mesure'] + [col for col in self.dataset_df if col.startswith('month_name')]
+		self.x_train = dataset_train_df[x_columns].values 
+		self.y_train = dataset_train_df[['Sales']].values
 
-		self.x_test = dataset_test_df[['index_mesure']].values  #une ligne à modifier pour le projet 
-		self.y_test = dataset_test_df[['passengers']].values
+		self.x_test = dataset_test_df[x_columns].values  
+		self.y_test = dataset_test_df[['Sales']].values
 
 
 	def show_graph(self):
 		plt.figure(figsize=(15, 6))
-		plt.plot(self.dataset_df["month"], self.dataset_df["passengers"], "o:")
+		plt.plot(self.dataset_df["Years"], self.dataset_df["Sales"], "o:")
+		
+		
 		plt.show()
