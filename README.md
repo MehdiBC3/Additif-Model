@@ -1,75 +1,89 @@
 # Additif-Model
-📈 Modèle Additif de Prédiction des Ventes
-Ce projet implémente un modèle additif de régression linéaire permettant de prédire les ventes mensuelles de maillots de bain à partir de données temporelles enrichies par des variables saisonnières (mois de l'année).
 
-🗂️ Structure du projet
+📈 **Modèle Additif de Prédiction des Ventes**
 
-- main.py                       # Script principal pour exécuter le projet
-- Additif.py                   # Implémentation du modèle de régression linéaire
-- data_preparation.py          # Prétraitement et transformation des données
-- vente_maillots_de_bain.csv   # Données de ventes avec date et ventes mensuelles
-- Projet-Maths.png             # Image du projet (visualisation ou illustration)
+Ce projet implémente un **modèle additif de régression linéaire** permettant de prédire les ventes mensuelles de maillots de bain à partir de données temporelles enrichies par des variables saisonnières (mois de l'année).
 
-🧠 Objectif
-L'objectif est d'appliquer un modèle additif basé sur la régression linéaire pour :
+---
 
-capturer la tendance temporelle via un index temporel,
+## 🗂️ Structure du projet
 
-intégrer la saisonnalité mensuelle avec des variables fictives (dummies),
+* `main.py` — Script principal pour exécuter le projet
+* `Additif.py` — Implémentation du modèle de régression linéaire
+* `data_preparation.py` — Prétraitement et transformation des données
+* `vente_maillots_de_bain.csv` — Données de ventes mensuelles
+* `Projet-Maths.png` — Illustration du projet (graphe ou résumé visuel)
 
-évaluer les performances sur des ensembles d'entraînement et de test,
+---
 
-visualiser les prédictions avec un intervalle de confiance.
+## 🧠 Objectif
 
-⚙️ Installation
-Assurez-vous d'avoir les bibliothèques suivantes installées :
+Ce projet vise à :
 
+* Capturer la **tendance temporelle** via un index numérique,
+* Intégrer la **saisonnalité mensuelle** à l’aide de variables fictives (one-hot encoding),
+* Évaluer la performance sur des ensembles **d'entraînement** et **de test**,
+* Visualiser les prédictions avec un **intervalle de confiance** à 95 %.
+
+---
+
+## ⚙️ Installation
+
+Installez les bibliothèques nécessaires avec :
+
+```bash
 pip install numpy pandas matplotlib scikit-learn
+```
 
-▶️ Utilisation
-Lancez le script principal :
+---
 
+## ▶️ Utilisation
+
+Lancez simplement le script principal :
+
+```bash
 python main.py
+```
 
 Ce script :
 
-Charge et prépare les données depuis vente_maillots_de_bain.csv.
+* Charge et prépare les données à partir de `vente_maillots_de_bain.csv`,
+* Sépare les données en train/test avec codage des mois,
+* Entraîne un modèle de régression linéaire,
+* Affiche les **erreurs absolues moyennes** sur les jeux de données,
+* Génère une **visualisation** des prédictions avec un intervalle de confiance.
 
-Sépare les données en entraînement/test avec codage des mois.
+---
 
-Entraîne un modèle de régression.
+## 📊 Données
 
-Affiche les erreurs absolues moyennes sur les jeux de train/test.
+Le fichier `vente_maillots_de_bain.csv` contient :
 
-Génère une visualisation des ventes réelles vs prédites avec intervalle de confiance à 95 %.
+* `Years` : dates mensuelles des mesures,
+* `Sales` : nombre de ventes par mois.
 
-📊 Données
-Le fichier vente_maillots_de_bain.csv contient :
+Un encodage **one-hot** est appliqué sur la colonne `month_name` pour modéliser la saisonnalité.
 
-Years : dates mensuelles des mesures,
+---
 
-Sales : nombre de ventes par mois.
+## 📈 Modèle
 
-Un encodage one-hot est appliqué sur les mois (month_name) pour intégrer la saisonnalité dans le modèle.
+Le modèle est une **régression linéaire additive** utilisant :
 
-📈 Modèle
-Le modèle utilisé est une régression linéaire avec :
+* Une variable temporelle : `index_mesure`,
+* Des variables catégorielles : `month_name_...`.
 
-une variable temporelle (index_mesure) pour la tendance,
+La performance est mesurée par l’**erreur absolue moyenne (MAE)** sur les ensembles d'entraînement et de test.
+Un **intervalle de confiance** à 95 % est également tracé sur les prédictions de test.
 
-des variables catégorielles (month_name_...) pour la saisonnalité.
+---
 
-La performance est mesurée via l'erreur absolue moyenne (MAE) sur les ensembles de train/test.
+## 🖼️ Visualisation
 
-Un intervalle de confiance (95%) est également tracé pour les prédictions sur l'ensemble de test.
+Le graphe final montre :
 
-🖼️ Visualisation
-Le graphe final affiche :
+* Les ventes réelles (train et test),
+* Les prédictions du modèle,
+* L’**intervalle de confiance** sur les prédictions test.
 
 ![Projet-Maths](https://github.com/MehdiBC3/Additif-Model/assets/156785256/3faeecac-ae3c-4672-839a-dd3cc6b6cbcf)
-
-Les ventes réelles (train/test),
-
-Les prédictions du modèle,
-
-L'intervalle de confiance sur les prédictions test.
