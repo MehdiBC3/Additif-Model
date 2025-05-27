@@ -4,11 +4,11 @@ Ce projet implémente un modèle additif de régression linéaire permettant de 
 
 🗂️ Structure du projet
 
-├── main.py                       # Script principal pour exécuter le projet
-├── Additif.py                   # Implémentation du modèle de régression linéaire
-├── data_preparation.py          # Prétraitement et transformation des données
-├── vente_maillots_de_bain.csv   # Données de ventes avec date et ventes mensuelles
-├── Projet-Maths.png             # Image du projet (visualisation ou illustration)
+- main.py                       # Script principal pour exécuter le projet
+- Additif.py                   # Implémentation du modèle de régression linéaire
+- data_preparation.py          # Prétraitement et transformation des données
+- vente_maillots_de_bain.csv   # Données de ventes avec date et ventes mensuelles
+- Projet-Maths.png             # Image du projet (visualisation ou illustration)
 
 🧠 Objectif
 L'objectif est d'appliquer un modèle additif basé sur la régression linéaire pour :
